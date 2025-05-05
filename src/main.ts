@@ -5,16 +5,17 @@ import { DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
-
+  
   const config = new DocumentBuilder()
-    .setTitle('Guardy API')
-    .setDescription('API documentation for Guardy')
-    .setVersion('1.0')
-    .addBearerAuth()
+    .setTitle('Guardy API') //api 이름
+    .setDescription('API documentation for Guardy') //api 설명
+    .setVersion('1.0') //api 버전
+    .addBearerAuth() //jwt 인증 추가
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
+
+  await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
