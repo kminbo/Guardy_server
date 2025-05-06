@@ -3,7 +3,6 @@ import { DangerService } from './danger.service';
 import { GetLocationDto } from './dto/get-location.dto';
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/strategies/jwt-auth.guard';
-import { GetDangerInfoDto } from './dto/get-danger-info.dto';
 import { ChangeModeDto } from './dto/change-mode.dto';
 import { AuthenticatedRequest } from 'src/common/types/authenticated-request';
 
@@ -16,14 +15,16 @@ export class DangerController {
 
     @Post('info')
     @ApiOperation({ summary: '1km 이동 시 위험 정보 조회' })
-    async getDangerInfo(@Body() dto: GetDangerInfoDto) {
-        return this.dangerService.getDangerInfo(dto);
+    async getDangerInfo(@Body() dto: GetLocationDto, @Req() req: AuthenticatedRequest) {
+        const userId = req.user.userId;
+        return this.dangerService.getDangerInfo(userId, dto);
     }
 
     @Post('location')
     @ApiOperation({ summary: '현위치 반환' })
-    async getLocation(@Body() dto: GetLocationDto) {
-        return this.dangerService.getLocationName(dto);
+    async getLocation(@Body() dto: GetLocationDto, @Req() req: AuthenticatedRequest) {
+        const userId = req.user.userId;
+        return this.dangerService.getLocationName(userId, dto);
     }
 
     @Post('mode')
