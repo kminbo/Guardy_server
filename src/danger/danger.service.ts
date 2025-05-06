@@ -198,7 +198,7 @@ difficulties: {difficulties}
       const start = text.indexOf('{');
       const end = text.lastIndexOf('}') + 1;
       const jsonText = text.substring(start, end);
-      
+
       //JSON 파싱
       const json = JSON.parse(jsonText);
 
@@ -262,7 +262,12 @@ difficulties: {difficulties}
     }
 
     async changeMode(userId: string, dto: ChangeModeDto) {
-        //TODO: DB에 mode 업데이트
+        const { mode } = dto;
+
+        await this.prisma.user.update({
+          where: { id: userId },
+          data: { mode: mode }
+        });
 
         return { success: true };
     }
