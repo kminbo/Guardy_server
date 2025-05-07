@@ -27,10 +27,5 @@ export class DangerController {
         return this.dangerService.getLocationName(userId, dto);
     }
 
-    @Post('mode')
-    @ApiOperation({ summary: '모드 변경(취침/안전)' })
-    async changeMode(@Body() dto: ChangeModeDto, @Req() req: AuthenticatedRequest) {
-        const userId = req.user.userId;
-       return this.dangerService.changeMode(userId, dto);
-    }
+
 }

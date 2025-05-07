@@ -4,6 +4,7 @@ import { DangerService } from './danger.service';
 
 @Module({
   controllers: [DangerController],
-  providers: [DangerService]
+  providers: [DangerService],
+  exports: [DangerService]
 })
 export class DangerModule {}

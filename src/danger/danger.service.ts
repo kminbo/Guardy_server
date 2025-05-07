@@ -261,14 +261,4 @@ difficulties: {difficulties}
         };
     }
 
-    async changeMode(userId: string, dto: ChangeModeDto) {
-        const { mode } = dto;
-
-        await this.prisma.user.update({
-          where: { id: userId },
-          data: { mode: mode }
-        });
-
-        return { success: true };
-    }
 }
